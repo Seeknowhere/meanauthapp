@@ -26,7 +26,7 @@ const UserSchema = mongoose.Schema({
 const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getUserById = function(id, callback){
-  user.findById(id, callback);
+  User.findById(id, callback);
 }
 
 module.exports.getUserByUsername = function(username, callback){

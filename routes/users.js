@@ -43,12 +43,13 @@ router.post('/authenticate', (req, res, next) =>{
           });
 
           res.json({
-            success:true,
+            success: true,
             token: 'JWT '+token,
-            true:{
+            user:{
               id: user._id,
-              username: user.username,
-              email: user.email
+               name: user.name,
+               username: user.username,
+               email: user.email
             }
           });
         } else {
@@ -58,24 +59,9 @@ router.post('/authenticate', (req, res, next) =>{
   });
 });
 
-//profile
-router.get('/profile', passport.authenticate('jwt', {session:false}), (req,res,next) =>{3
-
-    res.json({user: req.user});
-})
-
-//debug jwt jsonwebtoken
-router.get("/profileDebug",
-  function(req, res, next){
-    console.log(req.get('Authorization'));
-    next();
-  }, function(req, res){
-    res.json("debugging");
+// Profile
+router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+  res.json({user: req.user});
 });
-
-//validate
-// router.get('/validate', (req, res, next) =>{
-//   res.send('VALIDATE');
-// });
 
 module.exports = router;
