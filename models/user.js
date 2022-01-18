@@ -35,8 +35,16 @@ module.exports.getUserByUsername = function(username, callback){
 }
 
 module.exports.addUser = function(newUser, callback){
+  //function genSalt(rounds: number, callback: (err: Error, salt: string)
+  //Asynchronously generates a salt.
+  //rounds — Number of rounds to use, defaults to 10 if omitted
+  //callback — Callback receiving the error, if any, and the resulting salt
   bcrypt.genSalt(10, (err, salt)=>{
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
+    //function hash(s: string, salt: string | number, callback?: (err: Error, hash: string)
+    //Asynchronously generates a hash for the given string.
+    //@param s — String to hash
+    //@param salt — Salt length to generate or salt to use
+    bcrypt.hash(newUser.password/*s*/, salt, (err, hash) => {
       if(err) throw err;
       newUser.password = hash;
       newUser.save(callback);
@@ -45,7 +53,11 @@ module.exports.addUser = function(newUser, callback){
 }
 
 module.exports.comparePassword = function(candidatePassword, hash, callback){
-  bcrypt.compare(candidatePassword, hash, (err, isMatch) => {
+  //function compare(s: string, hash: string, callback?: (err: Error, success: boolean)
+  //Asynchronously compares the given data against the given hash.
+  //@param s — Data to compare
+  //@param hash — Data to be compared to
+  bcrypt.compare(candidatePassword/*s*/, hash, (err, isMatch/*success*/) => {
     if(err) throw err;
     callback(null, isMatch);
   });

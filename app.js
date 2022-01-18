@@ -26,7 +26,7 @@ const app = express();
 
 //port number
 const port = 3000;
-+
+
 //cors middleware
 app.use(cors());
 
